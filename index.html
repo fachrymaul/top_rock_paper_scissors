@@ -6,7 +6,31 @@
   </head>
   <body>
     <script type="text/javascript">
-      console.log("hello world")
+      function computerPlay()
+      {
+          const hand = ["rock", "paper", "scissors"];
+          let rand = Math.floor(Math.random() * 10) % 3;
+          console.log(rand);
+          return hand[rand];
+      }
+
+      function roundPlay(playerSelection, computerSelection)
+      {
+          const player = playerSelection.toLowerCase();
+          if(player === computerSelection) {
+              return "Draw";
+          } else if(player == "rock" && computerSelection == "paper" ||
+                    player == "paper" && computerSelection == "scissors" ||
+                    player == "scissors" && computerSelection == "rock") {
+              return "You win, " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1) + " beats " + player.charAt(0).toUpperCase() + player.slice(1);
+          } else {
+              return "You win, " + player.charAt(0).toUpperCase() + player.slice(1) + " beats " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
+          }
+      }
+
+      const player = "paPer";
+      const computer = computerPlay();
+      console.log(roundPlay(player, computer));
              
     </script>
 
