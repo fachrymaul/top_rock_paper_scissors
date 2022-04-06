@@ -10,7 +10,6 @@
       {
           const hand = ["rock", "paper", "scissors"];
           let rand = Math.floor(Math.random() * 10) % 3;
-          console.log(rand);
           return hand[rand];
       }
 
@@ -29,8 +28,10 @@
       }
 
       const player = "paPer";
-      const computer = computerPlay();
-      console.log(roundPlay(player, computer));
+      for(let i = 0; i < 10; i++){
+          const computer = computerPlay();
+          console.log(roundPlay(player, computer));
+      }
              
     </script>
 
