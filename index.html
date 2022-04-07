@@ -17,20 +17,45 @@
       {
           const player = playerSelection.toLowerCase();
           if(player === computerSelection) {
-              return "Draw";
+              console.log("Draw");
+              return 0;
           } else if(player == "rock" && computerSelection == "paper" ||
                     player == "paper" && computerSelection == "scissors" ||
                     player == "scissors" && computerSelection == "rock") {
-              return "You win, " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1) + " beats " + player.charAt(0).toUpperCase() + player.slice(1);
+              console.log("You win, " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1) + " beats " + player.charAt(0).toUpperCase() + player.slice(1));
+              return 1;
           } else {
-              return "You win, " + player.charAt(0).toUpperCase() + player.slice(1) + " beats " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
+              console.log("You lose, " + player.charAt(0).toUpperCase() + player.slice(1) + " beats " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1));
+              return -1;
           }
       }
 
-      const player = "paPer";
+      let result = 0;
       for(let i = 0; i < 10; i++){
+          console.log("i = " + i);
+
+          const player = window.prompt("pick your hand", "paper").toLowerCase();
+          
+          if(player != "paper" && player != "rock" && player != "scissors") {
+              console.log("Wrong selection")
+              i--
+              continue;
+          }
+
           const computer = computerPlay();
-          console.log(roundPlay(player, computer));
+          result += roundPlay(player, computer);
+          console.log("result = " + result);
+
+          if(result >= 5 || result <= -5)
+              continue;
+      }
+
+      if(result > 0) {
+          console.log("Congratulation, You Win!");
+      } else if(result < 0){
+          console.log("You Lose, Better Luck Next Time");
+      } else {
+          console.log("What a Draw")
       }
              
     </script>
