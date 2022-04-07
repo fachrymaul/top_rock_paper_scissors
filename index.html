@@ -30,7 +30,8 @@
           }
       }
 
-      let result = 0;
+      let playerScore = 0;
+      let computerScore = 0;
       for(let i = 0; i < 10; i++){
           console.log("i = " + i);
 
@@ -43,16 +44,27 @@
           }
 
           const computer = computerPlay();
-          result += roundPlay(player, computer);
+
+          const result = roundPlay(player, computer);
           console.log("result = " + result);
 
-          if(result >= 5 || result <= -5)
-              continue;
+          if(result > 0) {
+              playerScore++;
+              console.log("player score " + playerScore);
+          } else {
+              computerScore++;
+              console.log("computer score " + computerScore);
+          }
+
+          if(playerScore >= 5 || computerScore >= 5)
+              break;
       }
 
-      if(result > 0) {
+      let resultFinal = playerScore - computerScore;
+      console.log("result Final = " + resultFinal);
+      if(resultFinal > 0) {
           console.log("Congratulation, You Win!");
-      } else if(result < 0){
+      } else if(resultFinal < 0){
           console.log("You Lose, Better Luck Next Time");
       } else {
           console.log("What a Draw")
