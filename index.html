@@ -5,7 +5,18 @@
     <meta charset="utf-8">
   </head>
   <body>
+    <button id="btnRock">Rock</button>
+    <button id="btnPaper">Paper</button>
+    <button id="btnScissor">Scissor</button>
+    <p>Round</p>
+    <div id="round">1</div>
+    <p>player score</p>
+    <div id="scorePlayer">0</div>
+    <p>computer score</p>
+    <div id="scoreComputer">0</div>
+    <div id="result"></div>
     <script type="text/javascript">
+    
       function computerPlay()
       {
           const hand = ["rock", "paper", "scissors"];
@@ -22,54 +33,111 @@
           } else if(player == "rock" && computerSelection == "paper" ||
                     player == "paper" && computerSelection == "scissors" ||
                     player == "scissors" && computerSelection == "rock") {
-              console.log("You win, " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1) + " beats " + player.charAt(0).toUpperCase() + player.slice(1));
+              console.log("You lose, " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1) + " beats " + player.charAt(0).toUpperCase() + player.slice(1));
               return 1;
           } else {
-              console.log("You lose, " + player.charAt(0).toUpperCase() + player.slice(1) + " beats " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1));
+              console.log("You win, " + player.charAt(0).toUpperCase() + player.slice(1) + " beats " + computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1));
               return -1;
           }
       }
 
       let playerScore = 0;
       let computerScore = 0;
-      for(let i = 0; i < 10; i++){
-          console.log("i = " + i);
+      let final = false;
+      let round = 1;
 
-          const player = window.prompt("pick your hand", "paper").toLowerCase();
-          
-          if(player != "paper" && player != "rock" && player != "scissors") {
-              console.log("Wrong selection")
-              i--
-              continue;
-          }
+      function updateScore(result)
+      {
+        if(result > 0) {
+          playerScore++;
+          console.log("player score " + playerScore);
+          document.getElementById("scorePlayer").innerHTML = playerScore;
+        } 
 
-          const computer = computerPlay();
-
-          const result = roundPlay(player, computer);
-          console.log("result = " + result);
-
-          if(result > 0) {
-              playerScore++;
-              console.log("player score " + playerScore);
-          } else {
-              computerScore++;
-              console.log("computer score " + computerScore);
-          }
-
-          if(playerScore >= 5 || computerScore >= 5)
-              break;
+        if(result < 0){
+          computerScore++;
+          console.log("computer score " + computerScore);
+          document.getElementById("scoreComputer").innerHTML = computerScore;
+        }
+        
+        round++
+        document.getElementById("round").innerHTML = round;
       }
 
-      let resultFinal = playerScore - computerScore;
-      console.log("result Final = " + resultFinal);
-      if(resultFinal > 0) {
+      function checkWinner()
+      {
+
+        if(playerScore < 5 && computerScore < 5)
+        {
+          return
+        }
+
+        let resultFinal = playerScore - computerScore;
+
+        console.log("result Final = " + resultFinal);
+        if(resultFinal > 0) {
           console.log("Congratulation, You Win!");
-      } else if(resultFinal < 0){
+          document.getElementById("result").innerHTML = "Congratulation, You Win!";
+        } else if(resultFinal < 0){
           console.log("You Lose, Better Luck Next Time");
-      } else {
+          document.getElementById("result").innerHTML = "You Lose, Better Luck Next Time";
+        } else {
           console.log("What a Draw")
+          document.getElementById("result").innerHTML = "What a Draw";
+        }
+        
+        final = true
+
       }
-             
+
+      function playRock()
+      {
+        if(final)
+        {
+          return
+        }
+
+        console.log("you play Rock");
+        const computer = computerPlay();
+        console.log("computer play " + computer)
+        const result = roundPlay("rock", computer);
+        updateScore(result)
+        checkWinner()
+      }
+
+      function playPaper()
+      {
+        if(final)
+        {
+          return
+        }
+
+        console.log("you play Paper");
+        const computer = computerPlay();
+        console.log("computer play " + computer)
+        const result = roundPlay("paper", computer);
+        updateScore(result)
+        checkWinner()
+      }
+
+      function playScissor()
+      {
+        if(final)
+        {
+          return
+        }
+
+        console.log("you play Scissor");
+        const computer = computerPlay();
+        console.log("computer play " + computer)
+        const result = roundPlay("scissor", computer);
+        updateScore(result)
+        checkWinner()
+      }
+
+      document.getElementById("btnRock").addEventListener("click", playRock);
+      document.getElementById("btnPaper").addEventListener("click", playPaper);
+      document.getElementById("btnScissor").addEventListener("click", playScissor);
     </script>
 
   </body>
